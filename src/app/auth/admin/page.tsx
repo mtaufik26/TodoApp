@@ -15,7 +15,6 @@ import {
   Eye,
   EyeOff,
   Filter,
-  LayoutDashboard,
   ChevronRight,
   Users,
   Clock,
@@ -191,7 +190,7 @@ export default function AdminPage() {
         }
 
         const allData = await allResponse.json();
-        let allTodos = Array.isArray(allData.content?.entries) ? allData.content.entries : [];
+        const allTodos = Array.isArray(allData.content?.entries) ? allData.content.entries : [];
         setAllTodos(allTodos);
 
         let result = [...allTodos];
