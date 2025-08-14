@@ -1,103 +1,118 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Home, ArrowLeft, Cloud, Compass } from 'lucide-react';
+
+/**
+ * Halaman 404 Not Found dengan tampilan menarik
+ * - Menampilkan pesan kesalahan
+ * - Tombol navigasi ke login atau kembali
+ * - Dekorasi awan dan ikon kompas
+ */
+export default function NotFoundPage() {
+  const router = useRouter();
+
+  /** Navigasi ke halaman login */
+  const handleLoginRedirect = () => {
+    router.push('/login');
+  };
+
+  /** Navigasi ke halaman utama */
+  const handleHomeRedirect = () => {
+    router.push('/');
+  };
+
+  /** Kembali ke halaman sebelumnya */
+  const handleGoBack = () => {
+    router.back();
+  };
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-100 p-4">
+      {/* Floating clouds decoration */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 left-20 text-sky-200/30">
+          <Cloud size={60} />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <div className="absolute top-40 right-32 text-sky-200/20">
+          <Cloud size={80} />
+        </div>
+        <div className="absolute bottom-40 left-32 text-sky-200/25">
+          <Cloud size={70} />
+        </div>
+        <div className="absolute bottom-20 right-20 text-sky-200/20">
+          <Cloud size={50} />
+        </div>
+      </div>
+
+      {/* Card utama */}
+      <Card className="relative shadow-2xl max-w-lg w-full border-0 bg-white/90 backdrop-blur-sm overflow-hidden">
+        {/* Gradient header background */}
+        <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-r from-sky-400 via-blue-500 to-indigo-500"></div>
+        
+        <CardHeader className="text-center relative z-10 pt-8 pb-6">
+          {/* 404 dengan animasi bounce */}
+          <div className="relative mb-4">
+            <CardTitle className="text-8xl font-black text-white drop-shadow-lg mb-2 tracking-wider">
+              4<span className="inline-block animate-bounce mx-2">0</span>4
+            </CardTitle>
+            <div className="absolute -inset-2 bg-white/20 blur-xl rounded-full"></div>
+          </div>
+          
+          <CardDescription className="text-white/90 text-lg font-medium">
+            Oops! Halaman Tidak Ditemukan
+          </CardDescription>
+        </CardHeader>
+
+        <CardContent className="flex flex-col items-center gap-6 px-8 pb-8 relative z-10">
+          {/* Ikon kompas */}
+          <div className="p-4 bg-sky-50 rounded-full border-2 border-sky-200">
+            <Compass className="w-12 h-12 text-sky-600" />
+          </div>
+
+          {/* Pesan kesalahan */}
+          <div className="text-center space-y-3">
+            <p className="text-sky-700 font-semibold text-lg">
+              Sepertinya Anda tersesat!
+            </p>
+            <p className="text-sky-600 text-sm leading-relaxed max-w-xs">
+              Halaman yang Anda cari mungkin telah dipindahkan, dihapus, atau URL yang dimasukkan salah.
+            </p>
+          </div>
+
+          {/* Tombol aksi */}
+          <div className="flex flex-col sm:flex-row gap-3 w-full mt-4">
+            {/* Tombol ke halaman login */}
+            <Button 
+              variant="default" 
+              className="flex-1 bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-700 hover:to-blue-700 text-white font-semibold py-3 shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105"
+              onClick={handleLoginRedirect}
+            >
+              <Home className="w-4 h-4 mr-2" />
+              Ke Halaman Login
+            </Button>
+            
+            {/* Tombol kembali */}
+            <Button 
+              variant="outline" 
+              className="flex-1 border-sky-300 text-sky-700 hover:bg-sky-50 hover:border-sky-400 font-semibold py-3 transition-all duration-300"
+              onClick={handleGoBack}
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Kembali
+            </Button>
+          </div>
+
+          {/* Teks bantuan tambahan */}
+          <div className="text-center mt-4 pt-4 border-t border-sky-100">
+            <p className="text-sky-500 text-xs">
+              Butuh bantuan? Hubungi tim support kami
+            </p>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }
